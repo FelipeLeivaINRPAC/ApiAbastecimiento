@@ -5,7 +5,8 @@ const checkInputsUser = require('../middlewares/checkInputsUser')
 const SendResponse = require('../utils/responseHelper')
 const CalculateDv = require('../utils/rutHelper')
 
-const UserRepository = require('../../db/InMemory/UserRepository')
+// const UserRepository = require('../../db/InMemory/UserRepository')
+const UserRepository = require('../../db/SQLite/UserRepositorySQLite')
 const UserServices = require('../../../domain/services/UserServices')
 
 const repository = new UserRepository()

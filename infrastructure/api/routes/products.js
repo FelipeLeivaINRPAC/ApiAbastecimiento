@@ -5,10 +5,11 @@ const SendResponse = require('../utils/responseHelper')
 
 const validateInputsProduct = require('../middlewares/validateInputsProduct')
 
-const ProductRepositoryDb = require('../../db/InMemory/ProductRepository')
+// const ProductRepositoryDb = require('../../db/InMemory/ProductRepository')
+const ProductRepository = require('../../db/SQLite/ProductRepositorySQLite')
 const ProductServices = require('../../../domain/services/ProductServices')
 
-const repository = new ProductRepositoryDb()
+const repository = new ProductRepository()
 const productServices = new ProductServices(repository)
 
 router.get('/', async (req, res) => {
