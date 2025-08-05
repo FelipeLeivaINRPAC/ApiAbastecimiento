@@ -1,0 +1,31 @@
+{
+  "name": "api-productos",
+  "version": "1.0.0",
+  "description": "API to offer services between the Rebsol's database and external clients",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ing. Felipe Leiva Cortés",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "5.1.0",
+    "nodemon": "3.1.10"
+  },
+  "devDependencies": {
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.6.0",
+    "eslint-plugin-standard": "^4.1.0",
+    "prettier": "^3.6.2",
+    "standard": "17.1.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "standard"
+    ]
+  }
+}
