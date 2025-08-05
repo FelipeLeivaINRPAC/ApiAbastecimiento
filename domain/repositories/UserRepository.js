@@ -7,11 +7,22 @@ class UserRepository {
     throw new Error('Método no implementado')
   }
 
-  create(name, lastname, email) {
+  create(rut, dv, name, lastname, email, createdAt, updatedAt) {
     throw new Error('Método no implementado')
   }
 
-  update(id, name, lastname, email, isActive) {
+  update(
+    id,
+    rut,
+    dv,
+    name,
+    lastname,
+    email,
+    password,
+    isActive,
+    createdAt,
+    updatedAt,
+  ) {
     throw new Error('Método no implementado')
   }
 

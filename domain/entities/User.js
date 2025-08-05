@@ -1,10 +1,26 @@
 class User {
-  constructor({ id, name, lastname, email }) {
+  constructor({
+    id,
+    rut,
+    dv,
+    name,
+    lastname,
+    email,
+    password,
+    isActive,
+    createdAt,
+    updatedAt,
+  }) {
     this.id = id
+    this.rut = rut
+    this.dv = dv
     this.name = name
     this.lastname = lastname
     this.email = email
-    this.isActive = true
+    this.password = password
+    this.isActive = isActive
+    this.createdAt = createdAt
+    this.updatedAt = updatedAt
   }
 }
 
