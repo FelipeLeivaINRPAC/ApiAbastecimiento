@@ -1,4 +1,17 @@
-class User {
+import IUser from '../interfaces/IUser.js'
+
+export default class User {
+  id: number
+  rut: number
+  dv: string
+  name: string
+  lastname: string
+  email: string
+  password: string
+  isActive: boolean
+  createdAt: Date
+  updatedAt: Date
+
   constructor({
     id,
     rut,
@@ -10,7 +23,7 @@ class User {
     isActive,
     createdAt,
     updatedAt,
-  }) {
+  }: IUser) {
     this.id = id
     this.rut = rut
     this.dv = dv
@@ -23,5 +36,3 @@ class User {
     this.updatedAt = updatedAt
   }
 }
-
-module.exports = User

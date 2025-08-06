@@ -1,4 +1,20 @@
-const SendResponse = (res, action, message, data) => {
+import { Response } from 'express'
+
+type Action =
+  | 'GET'
+  | 'POST'
+  | 'PUT'
+  | 'DELETE'
+  | 'ERROR'
+  | 'BAD_REQUEST'
+  | 'SERVER_ERROR'
+
+const SendResponse = (
+  res: Response,
+  action: Action,
+  message?: string | null,
+  data?: any,
+) => {
   switch (action) {
     case 'GET':
       return res.status(200).json({
@@ -52,4 +68,4 @@ const SendResponse = (res, action, message, data) => {
   }
 }
 
-module.exports = SendResponse
+export default SendResponse

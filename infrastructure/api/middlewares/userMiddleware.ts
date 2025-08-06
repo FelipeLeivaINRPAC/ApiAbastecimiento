@@ -1,6 +1,7 @@
-const SendResponse = require('../utils/responseHelper')
+import { Request, Response, NextFunction } from 'express'
+import SendResponse from '../utils/responseHelper.js'
 
-const checkInputsUser = (req, res, next) => {
+const userMiddleware = (req: Request, res: Response, next: NextFunction) => {
   try {
     switch (req.method) {
       case 'DELETE':
@@ -12,6 +13,8 @@ const checkInputsUser = (req, res, next) => {
         break
 
       case 'POST': {
+        console.log(req.body)
+
         const { rut, name, lastname, email } = req.body
 
         if (!rut || typeof rut !== 'number') {
@@ -35,9 +38,13 @@ const checkInputsUser = (req, res, next) => {
     }
 
     next()
-  } catch (error) {
-    return SendResponse(res, 'ERROR', error.message)
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return SendResponse(res, 'ERROR', error.message)
+    }
+
+    return SendResponse(res, 'ERROR', 'Ocurrió un error inesperado')
   }
 }
 
-module.exports = checkInputsUser
+export default userMiddleware

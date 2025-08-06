@@ -1,16 +1,17 @@
-const express = require('express')
-const router = express.Router()
-const checkInputsUser = require('../middlewares/checkInputsUser')
+import express, { Request, Response } from 'express'
+import userMiddleware from '../middlewares/userMiddleware.js'
+import SendResponse from '../utils/responseHelper.js'
+import CalculateDv from '../utils/rutHelper.js'
 
-const SendResponse = require('../utils/responseHelper')
-const CalculateDv = require('../utils/rutHelper')
-
-// const UserRepository = require('../../db/InMemory/UserRepository')
-const UserRepository = require('../../db/SQLite/UserRepositorySQLite')
-const UserServices = require('../../../domain/services/UserServices')
+import UserServices from '../../../domain/services/UserServices.js'
+import UserRepository from '../../db/InMemory/UserRepository.js'
+import User from '../../../domain/entities/User.js'
+// const UserRepository = require('../../db/SQLite/UserRepositorySQLite')
 
 const repository = new UserRepository()
 const userServices = new UserServices(repository)
+
+const router = express.Router()
 
 // Get all users
 router.get('/', async (req, res) => {
@@ -19,8 +20,8 @@ router.get('/', async (req, res) => {
 })
 
 // Get user by id
-router.get('/:id', checkInputsUser, async (req, res) => {
-  const id = req.params.id
+router.get('/:id', userMiddleware, async (req, res) => {
+  const id = Number(req.params.id)
   const user = await userServices.getById(id)
   return user
     ? SendResponse(res, 'GET', null, user)
@@ -28,7 +29,7 @@ router.get('/:id', checkInputsUser, async (req, res) => {
 })
 
 // Create a new user
-router.post('/', checkInputsUser, async (req, res) => {
+router.post('/', userMiddleware, async (req, res) => {
   const { rut, name, lastname, email } = req.body
   const dv = await CalculateDv(rut)
   const user = await userServices.create(rut, dv, name, lastname, email)
@@ -38,10 +39,10 @@ router.post('/', checkInputsUser, async (req, res) => {
 })
 
 // Update a user
-router.put('/:id', checkInputsUser, async (req, res) => {
-  const id = req.params.id
+router.put('/:id', userMiddleware, async (req, res) => {
+  const id = Number(req.params.id)
   const { rut, name, lastname, email, password, isActive } = req.body
-  let dv = null
+  let dv = ''
   if (rut) {
     dv = await CalculateDv(rut)
   }
@@ -62,12 +63,12 @@ router.put('/:id', checkInputsUser, async (req, res) => {
 })
 
 // Delete a user
-router.delete('/:id', checkInputsUser, async (req, res) => {
-  const id = req.params.id
+router.delete('/:id', userMiddleware, async (req, res) => {
+  const id = Number(req.params.id)
   const wasDeleted = await userServices.delete(id)
   return wasDeleted
     ? SendResponse(res, 'DELETE')
     : SendResponse(res, 'ERROR', 'Usuario no eliminado')
 })
 
-module.exports = router
+export default router

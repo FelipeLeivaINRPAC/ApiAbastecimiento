@@ -1,4 +1,4 @@
-const CalculateDv = (rut) => {
+const CalculateDv = (rut: number): Promise<string> => {
   return new Promise((resolve, reject) => {
     const rutStr = rut.toString()
 
@@ -6,14 +6,15 @@ const CalculateDv = (rut) => {
       return reject(new Error('RUT incorrecto'))
     }
 
-    const reversedRut = rutStr.split('').reverse()
-    const multiplicadores = [2, 3, 4, 5, 6, 7]
+    const reversedRut: Array<string> = rutStr.split('').reverse()
+    const multiplicadores: Array<number> = [2, 3, 4, 5, 6, 7]
     let suma = 0
 
     for (let i = 0; i < reversedRut.length; i++) {
-      const digito = parseInt(reversedRut[i], 10)
+      const char = reversedRut[i]
+      const digito = parseInt(char!, 10)
       const multiplicador = multiplicadores[i % multiplicadores.length]
-      suma += digito * multiplicador
+      suma += digito * multiplicador!
     }
 
     const resto = suma % 11
@@ -21,8 +22,9 @@ const CalculateDv = (rut) => {
 
     if (dv === 11) return resolve('0')
     if (dv === 10) return resolve('K')
+
     return resolve(dv.toString())
   })
 }
 
-module.exports = CalculateDv
+export default CalculateDv
