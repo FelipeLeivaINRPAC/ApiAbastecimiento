@@ -1,6 +1,8 @@
+import './config/envLoader.js'
 import express, { Request, Response, NextFunction } from 'express'
 import routes from './infrastructure/api/routes/index.js'
 import SendResponse from './infrastructure/api/utils/responseHelper.js'
+import AuthenticationMiddleware from './infrastructure/api/middlewares/authenticationMiddleware.js'
 
 const app = express()
 const port = process.env.PORT ?? 3000
@@ -11,7 +13,7 @@ app.get('/api', (req, res) => {
   res.status(200).json({ message: 'You API is running successfully' })
 })
 
-app.use('/api', routes)
+app.use('/api', AuthenticationMiddleware, routes)
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof SyntaxError && 'body' in err) {
