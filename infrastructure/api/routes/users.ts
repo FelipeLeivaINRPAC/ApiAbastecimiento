@@ -3,10 +3,10 @@ import userMiddleware from '../middlewares/userMiddleware.js'
 import SendResponse from '../utils/responseHelper.js'
 import CalculateDv from '../utils/rutHelper.js'
 
-import UserServices from '../../../domain/services/UserServices.js'
-import UserRepository from '../../db/InMemory/UserRepository.js'
-import User from '../../../domain/entities/User.js'
-// const UserRepository = require('../../db/SQLite/UserRepositorySQLite')
+import UserServices from '../../../domain/services/userServices.js'
+
+// import UserRepository from '../../db/InMemory/userRepository.js'
+import UserRepository from '../../db/SQLite3/userRepository.js'
 
 const repository = new UserRepository()
 const userServices = new UserServices(repository)
@@ -14,13 +14,13 @@ const userServices = new UserServices(repository)
 const router = express.Router()
 
 // Get all users
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
   const users = await userServices.getAll()
   return SendResponse(res, 'GET', null, users)
 })
 
 // Get user by id
-router.get('/:id', userMiddleware, async (req, res) => {
+router.get('/:id', userMiddleware, async (req: Request, res: Response) => {
   const id = Number(req.params.id)
   const user = await userServices.getById(id)
   return user
@@ -29,7 +29,7 @@ router.get('/:id', userMiddleware, async (req, res) => {
 })
 
 // Create a new user
-router.post('/', userMiddleware, async (req, res) => {
+router.post('/', userMiddleware, async (req: Request, res: Response) => {
   const { rut, name, lastname, email } = req.body
   const dv = await CalculateDv(rut)
   const user = await userServices.create(rut, dv, name, lastname, email)
@@ -39,7 +39,7 @@ router.post('/', userMiddleware, async (req, res) => {
 })
 
 // Update a user
-router.put('/:id', userMiddleware, async (req, res) => {
+router.put('/:id', userMiddleware, async (req: Request, res: Response) => {
   const id = Number(req.params.id)
   const { rut, name, lastname, email, password, isActive } = req.body
   let dv = ''
@@ -63,7 +63,7 @@ router.put('/:id', userMiddleware, async (req, res) => {
 })
 
 // Delete a user
-router.delete('/:id', userMiddleware, async (req, res) => {
+router.delete('/:id', userMiddleware, async (req: Request, res: Response) => {
   const id = Number(req.params.id)
   const wasDeleted = await userServices.delete(id)
   return wasDeleted

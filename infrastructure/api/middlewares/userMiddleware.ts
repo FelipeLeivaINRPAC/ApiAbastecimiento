@@ -13,8 +13,6 @@ const userMiddleware = (req: Request, res: Response, next: NextFunction) => {
         break
 
       case 'POST': {
-        console.log(req.body)
-
         const { rut, name, lastname, email } = req.body
 
         if (!rut || typeof rut !== 'number') {

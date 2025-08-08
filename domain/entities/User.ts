@@ -1,29 +1,16 @@
-import IUser from '../interfaces/IUser.js'
-
 export default class User {
-  id: number
-  rut: number
-  dv: string
-  name: string
-  lastname: string
-  email: string
-  password: string
-  isActive: boolean
-  createdAt: Date
-  updatedAt: Date
-
-  constructor({
-    id,
-    rut,
-    dv,
-    name,
-    lastname,
-    email,
-    password,
-    isActive,
-    createdAt,
-    updatedAt,
-  }: IUser) {
+  constructor(
+    public id: number,
+    public rut: number,
+    public dv: string,
+    public name: string,
+    public lastname: string,
+    public email: string,
+    public password: string,
+    public isActive: boolean,
+    public createdAt: Date,
+    public updatedAt: Date,
+  ) {
     this.id = id
     this.rut = rut
     this.dv = dv

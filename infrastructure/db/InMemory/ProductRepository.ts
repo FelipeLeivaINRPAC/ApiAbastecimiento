@@ -1,5 +1,5 @@
-import Product from '../../../domain/entities/Product.js'
-import ProductFactory from '../../../domain/factories/ProductFactory.js'
+import Product from '../../../domain/entities/product.js'
+import ProductFactory from '../../../domain/factories/productFactory.js'
 import IProductRepository from '../../../domain/repositories/IProductRepository.js'
 
 export default class ProductRepository implements IProductRepository {
@@ -7,8 +7,8 @@ export default class ProductRepository implements IProductRepository {
 
   constructor() {
     this.products = [
-      new Product({ id: 1, name: 'Mouse', stock: 10 }),
-      new Product({ id: 2, name: 'Teclado', stock: 5 }),
+      ProductFactory.create(1, 'Mouse', 10),
+      ProductFactory.create(2, 'Teclado', 5),
     ]
   }
 
@@ -23,7 +23,7 @@ export default class ProductRepository implements IProductRepository {
 
   async create(name: string, stock: number) {
     const id = 1
-    const newProduct = ProductFactory.create({ id, name, stock })
+    const newProduct = ProductFactory.create(id, name, stock)
 
     if (!newProduct) return null
 

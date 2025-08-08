@@ -1,5 +1,5 @@
 import ApiKey from '../../../domain/entities/apiKey.js'
-import ApiKeyFactory from '../../../domain/factories/ApiKeyFactory.js'
+import ApiKeyFactory from '../../../domain/factories/apiKeyFactory.js'
 import IApiKey from '../../../domain/repositories/IApiKey.js'
 
 export default class AuthenticateRepository implements IApiKey {
@@ -38,10 +38,7 @@ export default class AuthenticateRepository implements IApiKey {
   }
 
   async getByHash(hash: string): Promise<ApiKey | null> {
-    console.log('All apiKeys', this.apiKeys)
-
     const apiKey = this.apiKeys.find((apiKey) => {
-      console.log('Comparando', apiKey.hash, 'con', hash)
       return apiKey.hash === hash
     })
     return apiKey ? apiKey : null

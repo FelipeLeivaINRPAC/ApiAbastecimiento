@@ -1,4 +1,4 @@
-import Product from '../entities/Product.js'
+import Product from '../entities/product.js'
 
 export default interface IProductRepository {
   getAll(): Promise<Product[]>

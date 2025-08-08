@@ -1,5 +1,5 @@
 import IProductRepository from '../repositories/IProductRepository.js'
-import Product from '../entities/Product.js'
+import Product from '../entities/product.js'
 
 export default class ProductService {
   repository: IProductRepository

@@ -1,7 +1,7 @@
 import IUserRepository from '../../../domain/repositories/IUserRepository.js'
-import UserFactory from '../../../domain/factories/UserFactory.js'
+import UserFactory from '../../../domain/factories/userFactory.js'
 import bcrypt from 'bcrypt'
-import User from '../../../domain/entities/User.js'
+import User from '../../../domain/entities/user.js'
 
 export default class UserRepository implements IUserRepository {
   private users: User[]

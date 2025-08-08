@@ -2,9 +2,10 @@ import express, { Request, Response } from 'express'
 import SendResponse from '../utils/responseHelper.js'
 import ProductsMiddleware from '../middlewares/productMiddleware.js'
 
-import ProductService from '../../../domain/services/ProductServices.js'
-import ProductRepository from '../../db/InMemory/ProductRepository.js'
-// const ProductRepository = require('../../db/SQLite/ProductRepositorySQLite')
+import ProductService from '../../../domain/services/productServices.js'
+
+// import ProductRepository from '../../db/InMemory/productRepository.js'
+import ProductRepository from '../../db/SQLite3/productRepository.js'
 
 const repository = new ProductRepository()
 const productServices = new ProductService(repository)

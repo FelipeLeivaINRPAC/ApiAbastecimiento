@@ -1,4 +1,4 @@
-import User from '../entities/User.js'
+import User from '../entities/user.js'
 import bcrypt from 'bcrypt'
 
 export default class UserFactory {
@@ -18,17 +18,17 @@ export default class UserFactory {
     const hashedPassword = bcrypt.hashSync(rut.toString().slice(0, 4), 10)
     const now = new Date()
 
-    return new User({
-      id: this.currentId++,
+    return new User(
+      this.currentId++,
       rut,
       dv,
       name,
       lastname,
       email,
-      password: hashedPassword,
-      isActive: true,
-      createdAt: now,
-      updatedAt: now,
-    })
+      hashedPassword,
+      true,
+      now,
+      now,
+    )
   }
 }

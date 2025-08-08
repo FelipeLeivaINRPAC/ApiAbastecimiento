@@ -1,9 +1,14 @@
-const path = require('path')
-const Database = require('better-sqlite3')
+import path from 'path'
+import { fileURLToPath } from 'url'
+import Database from 'better-sqlite3'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 const dbPath = path.join(__dirname, 'database.db')
 const db = new Database(dbPath)
+
 db.pragma('foreign_keys = ON')
+
 db.prepare(
   `CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,
     rut INTEGER NOT NULL,
@@ -15,6 +20,7 @@ db.prepare(
     createdAt TEXT NOT NULL DEFAULT (datetime('now')),
     updatedAt TEXT NOT NULL DEFAULT (datetime('now')))`,
 ).run()
+
 db.prepare(
   `CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,4 +28,4 @@ db.prepare(
     stock integer(10) NOT NULL)`,
 ).run()
 
-module.exports = db
+export default db as any

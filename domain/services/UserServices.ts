@@ -1,5 +1,5 @@
 import IUserRepository from '../repositories/IUserRepository.js'
-import User from '../entities/User.js'
+import User from '../entities/user.js'
 
 export default class UserServices {
   repository: IUserRepository

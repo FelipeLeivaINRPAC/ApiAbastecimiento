@@ -1,4 +1,4 @@
-import User from '../entities/User.js'
+import User from '../entities/user.js'
 
 export default interface IUserRepository {
   getAll(): Promise<User[]>

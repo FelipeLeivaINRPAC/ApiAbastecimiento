@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
-import AuthenticateRepository from '../../db/InMemory/AuthenticateRepository.js'
-import AuthenticateServices from '../../../domain/services/AuthenticateServices.js'
 import SendResponse from '../utils/responseHelper.js'
+
+import AuthenticateServices from '../../../domain/services/authenticateServices.js'
+
+import AuthenticateRepository from '../../db/InMemory/authenticateRepository.js'
+// import AuthenticateRepository from '../../db/SQLite3/authenticateRepository.js'
 
 const repository = new AuthenticateRepository()
 const authServices = new AuthenticateServices(repository)
