@@ -8,6 +8,7 @@ type Methods =
 	| 'ERROR'
 	| 'BAD_REQUEST'
 	| 'SERVER_ERROR'
+	| 'UNAUTHORIZED'
 
 export interface IGeneralResponse<T> {
 	res: Response
@@ -47,6 +48,13 @@ const SendResponse = <T>({
 
 		case 'ERROR':
 			return res.status(404).json({
+				success: false,
+				message: message ?? 'Ocurrió un error',
+				data,
+			})
+
+		case 'UNAUTHORIZED':
+			return res.status(401).json({
 				success: false,
 				message: message ?? 'Ocurrió un error',
 				data,

@@ -1,16 +1,11 @@
 import User from '../entities/user.js'
 import bcrypt from 'bcrypt'
+import { ICreateUser } from '../repositories/IUserRepository.js'
 
 export default class UserFactory {
 	private static currentId = 1
 
-	static create(
-		rut: number,
-		dv: string,
-		name: string,
-		lastname: string,
-		email: string
-	) {
+	static create({ rut, dv, name, lastname, email }: ICreateUser) {
 		if (!rut || !dv || !name || !lastname || !email) {
 			throw new Error('Datos incorrectos')
 		}

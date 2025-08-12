@@ -7,11 +7,11 @@ import AuthenticateRepository from '../../db/InMemory/authenticateRepository.js'
 const repository = new AuthenticateRepository()
 const authServices = new AuthenticateServices(repository)
 
-const router = express.Router()
+const authenticateRouter = express.Router()
 
-router.get('/', async (req: Request, res: Response) => {
+authenticateRouter.get('/', async (req: Request, res: Response) => {
 	const apiKeys = await authServices.getAll()
 	return SendResponse({ res, method: 'GET', message: null, data: apiKeys })
 })
 
-export default router
+export default authenticateRouter

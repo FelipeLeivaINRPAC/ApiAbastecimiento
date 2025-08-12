@@ -27,7 +27,7 @@ const AuthenticationMiddleware = async (
 		if (!apiKey)
 			return SendResponse({
 				res,
-				method: 'ERROR',
+				method: 'UNAUTHORIZED',
 				message: 'UNAUTHORIZE',
 				data: null,
 			})

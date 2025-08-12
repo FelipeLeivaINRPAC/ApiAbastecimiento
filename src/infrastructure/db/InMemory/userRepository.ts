@@ -11,21 +11,21 @@ export default class UserRepository implements IUserRepository {
 
 	constructor() {
 		this.users = [
-			UserFactory.create(
-				8899774,
-				'0',
-				'Usuario 1',
-				'Lastname 1',
-				'email_1@gmail.com'
-			),
+			UserFactory.create({
+				rut: 8899774,
+				dv: '0',
+				name: 'Usuario 1',
+				lastname: 'Lastname 1',
+				email: 'email_1@gmail.com',
+			}),
 
-			UserFactory.create(
-				15481243,
-				'9',
-				'Usuario 2',
-				'Lastname 2',
-				'email_2@gmail.com'
-			),
+			UserFactory.create({
+				rut: 15481243,
+				dv: '9',
+				name: 'Usuario 2',
+				lastname: 'Lastname 2',
+				email: 'email_2@gmail.com',
+			}),
 		]
 	}
 
@@ -39,7 +39,7 @@ export default class UserRepository implements IUserRepository {
 	}
 
 	async create({ rut, dv, name, lastname, email }: ICreateUser) {
-		const user = UserFactory.create(rut, dv, name, lastname, email)
+		const user = UserFactory.create({ rut, dv, name, lastname, email })
 
 		if (!user) return null
 

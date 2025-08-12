@@ -2,19 +2,20 @@ import express, { Request, Response } from 'express'
 import SendResponse from '../utils/responseHelper.js'
 import ProductsMiddleware from '../middlewares/productMiddleware.js'
 
-// import ProductRepository from '../../db/InMemory/productRepository.js'
-import ProductRepository from '../../db/SQLite3/productRepository.js'
+import CreateProduct from '../../../application/use_cases/product/createProduct.js'
+import DeleteProduct from '../../../application/use_cases/product/deleteProduct.js'
 import GetAllProducts from '../../../application/use_cases/product/getAllProducts.js'
 import GetProductById from '../../../application/use_cases/product/getProductById.js'
-import CreateProduct from '../../../application/use_cases/product/createProduct.js'
 import UpdateProduct from '../../../application/use_cases/product/updateProduct.js'
-import DeleteProduct from '../../../application/use_cases/product/deleteProduct.js'
+
+import ProductRepository from '../../db/InMemory/productRepository.js'
+// import ProductRepository from '../../db/SQLite3/productRepository.js'
 
 const repository = new ProductRepository()
-const router = express.Router()
+const productRouter = express.Router()
 
 // Get all Products
-router.get('/', async (req: Request, res: Response) => {
+productRouter.get('/', async (_req: Request, res: Response) => {
 	const app = new GetAllProducts(repository)
 	const products = await app.execute()
 
@@ -22,7 +23,7 @@ router.get('/', async (req: Request, res: Response) => {
 })
 
 // Get a Product by ID
-router.get('/:id', async (req: Request, res: Response) => {
+productRouter.get('/:id', async (req: Request, res: Response) => {
 	const id = Number(req.params.id)
 	const app = new GetProductById(repository)
 	const product = await app.execute(id)
@@ -38,40 +39,48 @@ router.get('/:id', async (req: Request, res: Response) => {
 })
 
 // Create a Product
-router.post('/', ProductsMiddleware, async (req: Request, res: Response) => {
-	const { name, stock } = req.body
-	const app = new CreateProduct(repository)
-	const product = await app.execute({ name, stock })
+productRouter.post(
+	'/',
+	ProductsMiddleware,
+	async (req: Request, res: Response) => {
+		const { name, stock } = req.body
+		const app = new CreateProduct(repository)
+		const product = await app.execute({ name, stock })
 
-	return product
-		? SendResponse({ res, method: 'POST', message: null, data: product })
-		: SendResponse({
-				res,
-				method: 'ERROR',
-				message: 'Producto no registrado',
-				data: null,
-			})
-})
+		return product
+			? SendResponse({ res, method: 'POST', message: null, data: product })
+			: SendResponse({
+					res,
+					method: 'ERROR',
+					message: 'Producto no registrado',
+					data: null,
+				})
+	}
+)
 
 // Update a Product
-router.put('/:id', ProductsMiddleware, async (req: Request, res: Response) => {
-	const id = Number(req.params.id)
-	const { name, stock } = req.body
-	const app = new UpdateProduct(repository)
-	const product = await app.execute({ id, name, stock })
+productRouter.put(
+	'/:id',
+	ProductsMiddleware,
+	async (req: Request, res: Response) => {
+		const id = Number(req.params.id)
+		const { name, stock } = req.body
+		const app = new UpdateProduct(repository)
+		const product = await app.execute({ id, name, stock })
 
-	return product
-		? SendResponse({ res, method: 'PUT', message: null, data: product })
-		: SendResponse({
-				res,
-				method: 'ERROR',
-				message: 'Producto no actualizado',
-				data: null,
-			})
-})
+		return product
+			? SendResponse({ res, method: 'PUT', message: null, data: product })
+			: SendResponse({
+					res,
+					method: 'ERROR',
+					message: 'Producto no actualizado',
+					data: null,
+				})
+	}
+)
 
 // Delete a Product
-router.delete('/:id', async (req: Request, res: Response) => {
+productRouter.delete('/:id', async (req: Request, res: Response) => {
 	const id = Number(req.params.id)
 	const app = new DeleteProduct(repository)
 	const wasDeleted = await app.execute(id)
@@ -86,4 +95,4 @@ router.delete('/:id', async (req: Request, res: Response) => {
 			})
 })
 
-export default router
+export default productRouter

@@ -1,11 +1,9 @@
-import './config/envLoader.js'
 import express, { Request, Response, NextFunction } from 'express'
 import routes from './src/infrastructure/api/routes/index.js'
 import SendResponse from './src/infrastructure/api/utils/responseHelper.js'
 import AuthenticationMiddleware from './src/infrastructure/api/middlewares/authenticationMiddleware.js'
 
 const app = express()
-const port = process.env.PORT ?? 3000
 
 app.use(express.json())
 
@@ -37,6 +35,4 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 	})
 })
 
-app.listen(port, () => {
-	console.log(`You API are running in http://127.0.0.1:${port}/api`)
-})
+export default app
